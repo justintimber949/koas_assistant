@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Assistant - Koas Companion</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
+</head>
+
+<body>
+    <main class="hero">
+        <div class="container hero-content">
+            <h1>Medical Assistant</h1>
+            <p class="tagline">Asisten cerdas untuk Koas yang lebih produktif.</p>
+
+            <div class="features">
+                <div class="card">
+                    <span class="card-icon">👥</span>
+                    <h3>Manajemen Pasien</h3>
+                    <p>Database pasien offline yang mudah diakses kapan saja.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📝</span>
+                    <h3>SOAP Notes</h3>
+                    <p>Catat perkembangan pasien dengan format SOAP standar.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🤖</span>
+                    <h3>AI Powered</h3>
+                    <p>Integrasi Gemini AI untuk analisis kasus (Tahap 2).</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">⏰</span>
+                    <h3>Smart Tasks</h3>
+                    <p>Reminder otomatis untuk tugas dan deadline penting.</p>
+                </div>
+            </div>
+
+            <button onclick="openSetup()" class="btn btn-primary">
+                🚀 Mulai Praktek
+            </button>
+        </div>
+    </main>
+
+    <!-- Setup Modal -->
+    <div id="setupModal" class="modal-overlay">
+        <div class="modal">
+            <h2 style="margin-bottom: 8px;">Selamat Datang, Doc! 👋</h2>
+            <p style="color: var(--text-light); margin-bottom: 24px;">Setup profil singkat dulu ya.</p>
+
+            <form id="setupForm" onsubmit="handleSetup(event)">
+                <div class="form-group">
+                    <label class="form-label">Nama Lengkap</label>
+                    <input type="text" id="name" class="form-input" placeholder="dr. Muda Siapa" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Stase Saat Ini</label>
+                    <select id="stase" class="form-select" required>
+                        <option value="">Pilih Stase...</option>
+                        <option value="IPD">Ilmu Penyakit Dalam</option>
+                        <option value="Bedah">Ilmu Bedah</option>
+                        <option value="Obgyn">Obstetri & Ginekologi</option>
+                        <option value="Anak">Ilmu Kesehatan Anak</option>
+                        <option value="Saraf">Saraf</option>
+                        <option value="Jantung">Jantung</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nama DPJP (Utama)</label>
+                    <input type="text" id="dpjp" class="form-input" placeholder="dr. Spesialis Sp.X" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Gemini API Key</label>
+                    <div class="api-input-group">
+                        <input type="password" id="apiKey" class="form-input" placeholder="AIzaSy..." required>
+                        <button type="button" class="toggle-password" onclick="toggleApiKey()">👁️</button>
+                    </div>
+                    <small style="color: var(--text-light); display: block; margin-top: 4px;">Penting untuk fitur AI.
+                        Model: <b>gemini-2.5-flash</b></small>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Simpan & Masuk Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made with ❤️ for Medical Students | <a href="#">GitHub</a></p>
+    </footer>
+
+    <!-- JS -->
+    <script src="assets/js/ai-service.js"></script>
+    <script src="assets/js/landing.js"></script>
+</body>
+
+</html>

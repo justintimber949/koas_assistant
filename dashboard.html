@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Medical Assistant</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <span>⚕️ MedAssist</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a onclick="navigate('dashboard')" class="nav-item active" id="nav-dashboard">
+                <span class="nav-icon">🏠</span> Dashboard
+            </a>
+            <a onclick="navigate('patients')" class="nav-item" id="nav-patients">
+                <span class="nav-icon">👥</span> Pasien
+            </a>
+            <a onclick="navigate('soap')" class="nav-item" id="nav-soap">
+                <span class="nav-icon">📋</span> SOAP Notes
+            </a>
+            <a onclick="navigate('tasks')" class="nav-item" id="nav-tasks">
+                <span class="nav-icon">✅</span> Tasks
+            </a>
+            <hr style="margin: 12px 0; border: none; border-top: 1px solid var(--border);">
+            <a onclick="navigate('settings')" class="nav-item" id="nav-settings">
+                <span class="nav-icon">⚙️</span> Settings
+            </a>
+        </nav>
+
+        <div class="user-profile">
+            <div class="user-avatar" id="avatarDisplay">DR</div>
+            <div>
+                <div style="font-weight: 600;" id="userDisplay">Dr. User</div>
+                <div style="font-size: 0.8rem; color: var(--text-light);" id="staseDisplay">Stase</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard View -->
+        <div id="view-dashboard">
+            <div class="top-bar">
+                <h1 class="page-title">Morning Briefing</h1>
+                <div class="actions">
+                    <button onclick="refreshData()" class="btn">🔄 Refresh</button>
+                    <button class="btn btn-primary">➕ New Task</button>
+                </div>
+            </div>
+
+            <!-- Urgent Tasks Card -->
+            <div class="card briefing-card">
+                <div class="card-header">
+                    <h2 class="card-title">🔥 Urgent Action Items (Hari Ini)</h2>
+                    <span class="tag tag-urgent" id="urgentCount">0 Items</span>
+                </div>
+                <ul class="data-list" id="briefingList">
+                    <li class="loading">Loading briefing...</li>
+                </ul>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Pasien Aktif</div>
+                    <div class="stat-value" id="statsActivePatients">0</div>
+                    <div class="text-sm text-light">Total pasien saat ini</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pending Tasks</div>
+                    <div class="stat-value" id="statsPendingTasks">0</div>
+                    <div class="text-sm text-light">Perlu diselesaikan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Deadline Besok</div>
+                    <div class="stat-value" id="statsUpcomingDeadlines">0</div>
+                    <div class="text-sm text-light">Cek kembali jadwal</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patients View -->
+        <div id="view-patients" class="hidden">
+            <div class="top-bar">
+                <h1 class="page-title">Daftar Pasien</h1>
+                <button class="btn btn-primary">➕ Tambah Pasien</button>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <input type="text" placeholder="Cari pasien..." class="btn"
+                        style="width: 300px; text-align: left; cursor: text;">
+                </div>
+                <table class="patient-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>Stase</th>
+                            <th>Diagnosa</th>
+                            <th>DPJP</th>
+                            <th>Status/Tags</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patientList">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SOAP View -->
+        <div id="view-soap" class="hidden">
+            <div class="top-bar">
+                <h1 class="page-title">SOAP Notes History</h1>
+                <button class="btn btn-primary">✍️ Tulis SOAP</button>
+            </div>
+            <div id="soapList">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Tasks View -->
+        <div id="view-tasks" class="hidden">
+            <div class="top-bar">
+                <h1 class="page-title">Task Management</h1>
+                <div class="actions">
+                    <button class="btn">Filter: All</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="card-title" style="margin-bottom:16px;">Todo List</h3>
+                <ul class="data-list" id="fullTaskList">
+                    <!-- Populated by JS -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Settings View -->
+        <div id="view-settings" class="hidden">
+            <div class="top-bar">
+                <h1 class="page-title">Settings</h1>
+            </div>
+            <div class="card" style="max-width: 600px;">
+                <h3 class="card-title">App Configuration</h3>
+                <div style="margin-top: 16px;">
+                    <p><strong>Configured API Key:</strong> <span id="displayApiKey">********</span></p>
+                    <p><strong>Model:</strong> gemini-2.5-flash</p>
+                    <button onclick="window.db.clearData()" class="btn"
+                        style="margin-top: 24px; color: var(--danger); border-color: var(--danger);">⚠️ Reset Local
+                        Data</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS -->
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/ai-service.js"></script>
+    <script src="assets/js/ai-chat.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "medical-assistant",
+  "version": "1.0.0",
+  "description": "An intelligent medical assistant app for clinical clerks (koas), powered by Gemini AI.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "serve .",
+    "dev": "serve .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "serve": "^14.2.5"
+  }
+}
